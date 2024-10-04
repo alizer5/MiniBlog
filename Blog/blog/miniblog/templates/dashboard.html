@@ -1,0 +1,64 @@
+{% extends 'base.html'%}
+{% load static % }
+
+
+
+    
+    {% block msg %}
+            {% if messages %}
+            {% for message in messages %}
+            <div {% if message.tags %} class="alert alert-{{ message.tags }} alert-dismissible fade show" {% endif %}>
+                <strong>{{ message }}</strong>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+             {% endif %}
+            {% endblock msg %}
+</div>
+{% block content %}
+
+<div class="col-sm-10">
+    <h3 class="text-white mt-5 text-center">Dashboard Page </h3>
+    <a href="{% url 'addpost' %}" class="btn btn-success">Add Post</a>
+    <h4 class=" text-center alert alert-info mt-3">Show Post Informations</h4>
+    
+    <div class="container mt-3">  
+        {% if posts %}          
+        <table class="table table-hover bg-white">
+          <thead>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>Description</th>
+              <th>Action</th>
+              
+            </tr>
+          </thead>
+          {% for post in posts %}
+          <tbody>
+            <tr>
+              <td>{{post.id}}</td>
+              <td>{{post.title}}</td>
+              <td>{{post.desc}}</td>
+              <td class="text-center"><a href="{% url 'updatepost' post.id %}" class="btn btn-warning btn-sm">Edit
+
+              </a>
+              {% if perms.blog.delete_postblog %}
+              <form action="{% url 'deletepost' post.id %}" method="post"class="d-inline">
+                {% csrf_token %}
+               <input type="submit" value="Delete" class="btn btn-danger btn-sm">
+               {% endif %}
+              </form>
+
+              </td>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% else %}
+       <h4 class="text-center alert alert-warning">No Records</h4>
+       {% endif %}
+
+{% endblock content %}

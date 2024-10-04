@@ -1,0 +1,14 @@
+body{
+    background-color: rgb(75,74,74);
+    color: antiquewhite;
+}
+ .jumbo-color{
+    background-color: rgb(74,74,74)
+
+}
+input, textarea {
+    background-color: antiquewhite; /* Change this color as needed */
+    color: black; /* Set text color */
+}
+
+/* Remove the default focus effect */
